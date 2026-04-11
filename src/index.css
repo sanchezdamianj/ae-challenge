@@ -1,0 +1,193 @@
+/* ─── Design Tokens ──────────────────────────────────────────────────────── */
+
+:root {
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Surfaces */
+  --bg:           #F7F8FA;
+  --surface:      #FFFFFF;
+  --surface-hover:#F0F2F5;
+
+  /* Borders */
+  --border:       #E2E4EA;
+  --border-strong:#C9CCD4;
+
+  /* Text */
+  --text-1:       #0D0F14;
+  --text-2:       #5C6170;
+  --text-3:       #9299A8;
+
+  /* Accent (AmEx blue) */
+  --accent:       #005EB8;
+  --accent-hover: #004A93;
+  --accent-surface:#EBF3FF;
+
+  /* Status: Open */
+  --open-text:    #92400E;
+  --open-bg:      #FEF3C7;
+  --open-border:  #FCD34D;
+
+  /* Status: In Progress */
+  --progress-text:#1D4ED8;
+  --progress-bg:  #EFF6FF;
+  --progress-border:#93C5FD;
+
+  /* Status: Resolved */
+  --resolved-text:#065F46;
+  --resolved-bg:  #ECFDF5;
+  --resolved-border:#6EE7B7;
+
+  /* Priority dots */
+  --high:         #DC2626;
+  --medium:       #D97706;
+  --low:          #6B7280;
+
+  /* Elevation */
+  --shadow-sm:    0 1px 2px rgba(0,0,0,.05);
+  --shadow-md:    0 4px 6px -1px rgba(0,0,0,.07), 0 2px 4px -1px rgba(0,0,0,.04);
+  --shadow-modal: 0 25px 50px -12px rgba(0,0,0,.18);
+
+  /* Radii */
+  --r-sm: 4px;
+  --r-md: 6px;
+  --r-lg: 10px;
+  --r-full: 9999px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:           #0C0E14;
+    --surface:      #13161F;
+    --surface-hover:#1A1E2A;
+    --border:       #252A38;
+    --border-strong:#353B4F;
+
+    --text-1:       #F0F2F8;
+    --text-2:       #8B92A8;
+    --text-3:       #5C6377;
+
+    --accent:       #4A9FE8;
+    --accent-hover: #67B1EE;
+    --accent-surface:#0D1F35;
+
+    --open-text:    #FCD34D;
+    --open-bg:      #1C1505;
+    --open-border:  #78400A;
+
+    --progress-text:#93C5FD;
+    --progress-bg:  #0C1A2E;
+    --progress-border:#1D3A5E;
+
+    --resolved-text:#6EE7B7;
+    --resolved-bg:  #052015;
+    --resolved-border:#065F46;
+
+    --high:         #F87171;
+    --medium:       #FBBF24;
+    --low:          #9CA3AF;
+
+    --shadow-modal: 0 25px 50px -12px rgba(0,0,0,.55);
+  }
+}
+
+/* ─── Reset ──────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-1);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text-1);
+  font-weight: 600;
+}
+
+p { margin: 0; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+/* ─── Status Badges ──────────────────────────────────────────────────────── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--r-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.6;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.badge--open {
+  color: var(--open-text);
+  background: var(--open-bg);
+  border-color: var(--open-border);
+}
+
+.badge--in-progress {
+  color: var(--progress-text);
+  background: var(--progress-bg);
+  border-color: var(--progress-border);
+}
+
+.badge--resolved {
+  color: var(--resolved-text);
+  background: var(--resolved-bg);
+  border-color: var(--resolved-border);
+}
+
+/* ─── Priority Indicators ────────────────────────────────────────────────── */
+
+.priority {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.priority__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.priority--high  { color: var(--high);   }
+.priority--medium{ color: var(--medium); }
+.priority--low   { color: var(--low);    }
+
+.priority--high   .priority__dot { background: var(--high);   }
+.priority--medium .priority__dot { background: var(--medium); }
+.priority--low    .priority__dot { background: var(--low);    }
