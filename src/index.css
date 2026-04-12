@@ -1,54 +1,32 @@
-/* ─── Design Tokens ──────────────────────────────────────────────────────── */
-
 :root {
   --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
-
-  /* Surfaces */
   --bg:           #F7F8FA;
   --surface:      #FFFFFF;
   --surface-hover:#F0F2F5;
-
-  /* Borders */
   --border:       #E2E4EA;
   --border-strong:#C9CCD4;
-
-  /* Text */
   --text-1:       #0D0F14;
   --text-2:       #5C6170;
   --text-3:       #9299A8;
-
-  /* Accent (AmEx blue) */
   --accent:       #005EB8;
   --accent-hover: #004A93;
   --accent-surface:#EBF3FF;
-
-  /* Status: Open */
   --open-text:    #92400E;
   --open-bg:      #FEF3C7;
   --open-border:  #FCD34D;
-
-  /* Status: In Progress */
   --progress-text:#1D4ED8;
   --progress-bg:  #EFF6FF;
   --progress-border:#93C5FD;
-
-  /* Status: Resolved */
   --resolved-text:#065F46;
   --resolved-bg:  #ECFDF5;
   --resolved-border:#6EE7B7;
-
-  /* Priority dots */
   --high:         #DC2626;
   --medium:       #D97706;
   --low:          #6B7280;
-
-  /* Elevation */
   --shadow-sm:    0 1px 2px rgba(0,0,0,.05);
   --shadow-md:    0 4px 6px -1px rgba(0,0,0,.07), 0 2px 4px -1px rgba(0,0,0,.04);
   --shadow-modal: 0 25px 50px -12px rgba(0,0,0,.18);
-
-  /* Radii */
   --r-sm: 4px;
   --r-md: 6px;
   --r-lg: 10px;
@@ -91,8 +69,6 @@
   }
 }
 
-/* ─── Reset ──────────────────────────────────────────────────────────────── */
-
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -134,8 +110,6 @@ button {
   cursor: pointer;
 }
 
-/* ─── Status Badges ──────────────────────────────────────────────────────── */
-
 .badge {
   display: inline-flex;
   align-items: center;
@@ -165,8 +139,6 @@ button {
   background: var(--resolved-bg);
   border-color: var(--resolved-border);
 }
-
-/* ─── Priority Indicators ────────────────────────────────────────────────── */
 
 .priority {
   display: inline-flex;

@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 import type { Feedback, FeedbackStatus } from '../types/feedback';
 import { StatusBadge } from './StatusBadge';
 import { PriorityBadge } from './PriorityBadge';
-import { useI18n } from '../contexts/I18nContext';
 
 const STATUSES: FeedbackStatus[] = ['Open', 'In Progress', 'Resolved'];
 
@@ -26,7 +25,6 @@ const FOCUSABLE_SELECTORS =
   'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 export function FeedbackDetailModal({ item, onClose, onStatusChange }: FeedbackDetailModalProps) {
-  const { t } = useI18n();
   const dialogRef = useRef<HTMLDivElement>(null);
   const previouslyFocusedRef = useRef<Element | null>(null);
 
@@ -81,7 +79,7 @@ export function FeedbackDetailModal({ item, onClose, onStatusChange }: FeedbackD
             <PriorityBadge priority={item.priority} />
             <span className="modal__category">{item.category}</span>
           </div>
-          <button className="modal__close" onClick={onClose} aria-label={t.modal.close}>
+          <button className="modal__close" onClick={onClose} aria-label="Close detail panel">
             ✕
           </button>
         </div>
@@ -94,15 +92,15 @@ export function FeedbackDetailModal({ item, onClose, onStatusChange }: FeedbackD
           <p className="modal__message">{item.message}</p>
           <dl className="modal__meta">
             <div className="modal__meta-row">
-              <dt>{t.modal.statusLabel}</dt>
+              <dt>Status</dt>
               <dd><StatusBadge status={item.status} /></dd>
             </div>
             <div className="modal__meta-row">
-              <dt>{t.modal.submittedLabel}</dt>
+              <dt>Submitted</dt>
               <dd><time dateTime={item.createdAt}>{formattedDate}</time></dd>
             </div>
             <div className="modal__meta-row">
-              <dt>{t.modal.idLabel}</dt>
+              <dt>ID</dt>
               <dd className="modal__id">#{item.id}</dd>
             </div>
           </dl>
@@ -110,7 +108,7 @@ export function FeedbackDetailModal({ item, onClose, onStatusChange }: FeedbackD
 
         <div className="modal__footer">
           <fieldset className="modal__status-fieldset">
-            <legend className="modal__status-legend">{t.modal.updateStatus}</legend>
+            <legend className="modal__status-legend">Update status</legend>
             <div className="modal__status-options">
               {STATUSES.map((s) => (
                 <label key={s} className="modal__status-label">

@@ -1,46 +1,3 @@
-/* ─── Error Boundary ─────────────────────────────────────────────────────── */
-
-.error-boundary {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 24px;
-  text-align: center;
-  color: var(--text-2);
-}
-
-.error-boundary h2 {
-  font-size: 1.25rem;
-  color: var(--text-1);
-}
-
-.error-boundary p {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  color: var(--high);
-  max-width: 480px;
-}
-
-.error-boundary button {
-  padding: 8px 16px;
-  border-radius: var(--r-md);
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text-1);
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-top: 8px;
-}
-
-.error-boundary button:hover {
-  border-color: var(--border-strong);
-}
-
-/* ─── Layout ─────────────────────────────────────────────────────────────── */
-
 .app {
   min-height: 100vh;
   display: flex;
@@ -67,12 +24,6 @@
   gap: 16px;
 }
 
-.app__title-group {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-}
-
 .app__title {
   font-size: 1.0625rem;
   font-weight: 600;
@@ -97,36 +48,17 @@
   gap: 16px;
 }
 
-/* ─── Header Actions ─────────────────────────────────────────────────────── */
-
 .app__header-actions {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.app__locale-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 32px;
-  border-radius: var(--r-md);
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text-2);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  transition: border-color 0.15s, color 0.15s;
+.app__title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
 }
-
-.app__locale-toggle:hover {
-  border-color: var(--border-strong);
-  color: var(--text-1);
-}
-
-/* ─── Dataset Toggle ─────────────────────────────────────────────────────── */
 
 .app__dataset-toggle {
   display: inline-flex;
@@ -153,8 +85,6 @@
   color: var(--accent);
   background: var(--accent-surface);
 }
-
-/* ─── Filters ────────────────────────────────────────────────────────────── */
 
 .filters {
   background: var(--surface);
@@ -257,15 +187,12 @@
   color: var(--text-1);
 }
 
-/* ─── Feedback Table ─────────────────────────────────────────────────────── */
-
 .feedback-table-container {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   overflow-y: auto;
   box-shadow: var(--shadow-sm);
-  /* Stable scrollbar gutter prevents layout shift when scrollbar appears */
   scrollbar-gutter: stable;
 }
 
@@ -313,9 +240,6 @@
   font-size: 0.9375rem;
 }
 
-/* ─── Feedback Row ───────────────────────────────────────────────────────── */
-
-/* ROW_HEIGHT must match the JS constant in FeedbackTable.tsx (64px) */
 .feedback-row {
   height: 64px;
   border-bottom: 1px solid var(--border);
@@ -378,8 +302,6 @@
   color: var(--text-2);
   white-space: nowrap;
 }
-
-/* ─── Detail Modal ───────────────────────────────────────────────────────── */
 
 .modal-overlay {
   position: fixed;
@@ -572,8 +494,6 @@
   cursor: pointer;
 }
 
-/* ─── Feedback Cards (mobile) ────────────────────────────────────────────── */
-
 .card-list {
   display: flex;
   flex-direction: column;
@@ -601,7 +521,6 @@
   gap: 10px;
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
-  /* content-visibility lets the browser skip layout/paint for offscreen cards */
   content-visibility: auto;
   contain-intrinsic-size: 0 120px;
 }
@@ -665,8 +584,6 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
-/* ─── Responsive ─────────────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
   .app__header-content {

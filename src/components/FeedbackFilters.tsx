@@ -1,4 +1,3 @@
-import { useI18n } from '../contexts/I18nContext';
 import type { FeedbackCategory, FeedbackFilters, FeedbackStatus, SortOption } from '../types/feedback';
 
 interface FeedbackFiltersProps {
@@ -9,17 +8,14 @@ interface FeedbackFiltersProps {
 
 const CATEGORIES: FeedbackCategory[] = ['Bug', 'Feature Request', 'Billing', 'Other'];
 const STATUSES: FeedbackStatus[] = ['Open', 'In Progress', 'Resolved'];
+const SORT_OPTIONS: { value: SortOption; label: string }[] = [
+  { value: 'newest', label: 'Newest first' },
+  { value: 'oldest', label: 'Oldest first' },
+  { value: 'priority-high', label: 'Priority: High to Low' },
+  { value: 'priority-low', label: 'Priority: Low to High' },
+];
 
 export function FeedbackFilters({ filters, totalCount, onChange }: FeedbackFiltersProps) {
-  const { t } = useI18n();
-
-  const SORT_OPTIONS: { value: SortOption; label: string }[] = [
-    { value: 'newest', label: t.filters.sortNewest },
-    { value: 'oldest', label: t.filters.sortOldest },
-    { value: 'priority-high', label: t.filters.sortPriorityHigh },
-    { value: 'priority-low', label: t.filters.sortPriorityLow },
-  ];
-
   const hasActiveFilters =
     filters.query !== '' || filters.category !== '' || filters.status !== '';
 
@@ -28,27 +24,27 @@ export function FeedbackFilters({ filters, totalCount, onChange }: FeedbackFilte
   }
 
   return (
-    <div className="filters" role="search" aria-label={t.filters.searchLabel}>
+    <div className="filters" role="search" aria-label="Feedback filters">
       <div className="filters-row">
         <div className="filter-group filter-group--search">
           <label htmlFor="search" className="filter-label">
-            {t.filters.searchLabel}
+            Search
           </label>
           <input
             id="search"
             type="search"
             className="filter-input"
-            placeholder={t.filters.searchPlaceholder}
+            placeholder="Customer name or message..."
             value={filters.query}
             maxLength={100}
             onChange={(e) => onChange({ query: e.target.value })}
-            aria-label={t.filters.searchPlaceholder}
+            aria-label="Search by customer name or message"
           />
         </div>
 
         <div className="filter-group">
           <label htmlFor="category" className="filter-label">
-            {t.filters.categoryLabel}
+            Category
           </label>
           <select
             id="category"
@@ -58,7 +54,7 @@ export function FeedbackFilters({ filters, totalCount, onChange }: FeedbackFilte
               onChange({ category: e.target.value as FeedbackCategory | '' })
             }
           >
-            <option value="">{t.filters.allCategories}</option>
+            <option value="">All categories</option>
             {CATEGORIES.map((cat) => (
               <option key={cat} value={cat}>{cat}</option>
             ))}
@@ -67,7 +63,7 @@ export function FeedbackFilters({ filters, totalCount, onChange }: FeedbackFilte
 
         <div className="filter-group">
           <label htmlFor="status" className="filter-label">
-            {t.filters.statusLabel}
+            Status
           </label>
           <select
             id="status"
@@ -77,7 +73,7 @@ export function FeedbackFilters({ filters, totalCount, onChange }: FeedbackFilte
               onChange({ status: e.target.value as FeedbackStatus | '' })
             }
           >
-            <option value="">{t.filters.allStatuses}</option>
+            <option value="">All statuses</option>
             {STATUSES.map((s) => (
               <option key={s} value={s}>{s}</option>
             ))}
@@ -86,7 +82,7 @@ export function FeedbackFilters({ filters, totalCount, onChange }: FeedbackFilte
 
         <div className="filter-group">
           <label htmlFor="sort" className="filter-label">
-            {t.filters.sortLabel}
+            Sort by
           </label>
           <select
             id="sort"
@@ -103,16 +99,16 @@ export function FeedbackFilters({ filters, totalCount, onChange }: FeedbackFilte
 
       <div className="filters-meta">
         <span className="filters-count" aria-live="polite" aria-atomic="true">
-          {t.filters.results(totalCount)}
+          {totalCount} {totalCount === 1 ? 'result' : 'results'}
         </span>
         {hasActiveFilters && (
           <button
             type="button"
             className="filters-reset"
             onClick={handleReset}
-            aria-label={t.filters.clearFilters}
+            aria-label="Clear filters"
           >
-            {t.filters.clearFilters}
+            Clear filters
           </button>
         )}
       </div>

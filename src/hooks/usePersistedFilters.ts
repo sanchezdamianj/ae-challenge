@@ -42,7 +42,7 @@ function saveToStorage(filters: FeedbackFilters): void {
     const payload: PersistedShape = { v: SCHEMA_VERSION, filters };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
   } catch {
-    // intentionally silent
+    return;
   }
 }
 

@@ -2,7 +2,6 @@ import { memo, useEffect, useRef } from 'react';
 import type { Feedback } from '../types/feedback';
 import { StatusBadge } from './StatusBadge';
 import { PriorityBadge } from './PriorityBadge';
-import { useI18n } from '../contexts/I18nContext';
 
 interface FeedbackRowProps {
   item: Feedback;
@@ -30,7 +29,6 @@ export const FeedbackRow = memo(function FeedbackRow({
   onSelect,
   onFocus,
 }: FeedbackRowProps) {
-  const { t } = useI18n();
   const rowRef = useRef<HTMLTableRowElement>(null);
 
   useEffect(() => {
@@ -56,7 +54,7 @@ export const FeedbackRow = memo(function FeedbackRow({
       onFocus={() => onFocus(index)}
       tabIndex={0}
       role="button"
-      aria-label={t.table.viewDetails(item.customerName)}
+      aria-label={`View details for ${item.customerName}`}
     >
       <td className="feedback-row__cell feedback-row__cell--name">
         <span className="feedback-row__name">{item.customerName}</span>

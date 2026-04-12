@@ -2,7 +2,6 @@ import { memo } from 'react';
 import type { Feedback } from '../types/feedback';
 import { StatusBadge } from './StatusBadge';
 import { PriorityBadge } from './PriorityBadge';
-import { useI18n } from '../contexts/I18nContext';
 
 interface FeedbackCardProps {
   item: Feedback;
@@ -21,8 +20,6 @@ function formatDate(iso: string): string {
 }
 
 export const FeedbackCard = memo(function FeedbackCard({ item, onSelect }: FeedbackCardProps) {
-  const { t } = useI18n();
-
   function handleKeyDown(e: React.KeyboardEvent) {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -37,7 +34,7 @@ export const FeedbackCard = memo(function FeedbackCard({ item, onSelect }: Feedb
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="button"
-      aria-label={t.table.viewDetails(item.customerName)}
+      aria-label={`View details for ${item.customerName}`}
     >
       <div className="feedback-card__top">
         <div className="feedback-card__badges">

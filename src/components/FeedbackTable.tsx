@@ -1,12 +1,15 @@
-import { memo, useCallback, useRef, useState } from 'react';
+import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import type { Feedback } from '../types/feedback';
 import { FeedbackRow } from './FeedbackRow';
-import { useI18n } from '../contexts/I18nContext';
 
-// Must match the `.feedback-row` height defined in App.css
 const ROW_HEIGHT = 64;
 const OVERSCAN = 5;
 const DEFAULT_CONTAINER_HEIGHT = 560;
+
+// For a small fixed-height window like this, manual virtualization keeps the
+// implementation simple and i avoid an extra dependency. I would switch to react-window
+// if rows became variable, added height, the list behavior got more complex, or this
+// pattern needed to be reused across multiple screens.
 
 interface FeedbackTableProps {
   items: Feedback[];
@@ -14,11 +17,11 @@ interface FeedbackTableProps {
   containerHeight?: number;
 }
 
-function EmptyState({ message }: { message: string }) {
+function EmptyState() {
   return (
     <tr>
       <td colSpan={5} className="feedback-table__empty" role="status">
-        {message}
+        No feedback matches your filters.
       </td>
     </tr>
   );
@@ -29,7 +32,6 @@ export const FeedbackTable = memo(function FeedbackTable({
   onSelect,
   containerHeight = DEFAULT_CONTAINER_HEIGHT,
 }: FeedbackTableProps) {
-  const { t } = useI18n();
   const [scrollTop, setScrollTop] = useState(0);
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -74,7 +76,10 @@ export const FeedbackTable = memo(function FeedbackTable({
     items.length - 1,
     Math.ceil((scrollTop + containerHeight) / ROW_HEIGHT) + OVERSCAN
   );
-  const visibleItems = items.slice(startIndex, endIndex + 1);
+  const visibleItems = useMemo(
+    () => items.slice(startIndex, endIndex + 1),
+    [items, startIndex, endIndex]
+  );
   const paddingTop = startIndex * ROW_HEIGHT;
   const paddingBottom = Math.max(0, (items.length - endIndex - 1) * ROW_HEIGHT);
 
@@ -85,21 +90,21 @@ export const FeedbackTable = memo(function FeedbackTable({
       style={{ height: containerHeight }}
       onScroll={handleScroll}
       role="region"
-      aria-label={t.table.ariaLabel}
+      aria-label="Feedback list"
     >
       <table className="feedback-table">
         <thead className="feedback-table__head">
           <tr>
-            <th scope="col" className="feedback-table__th feedback-table__th--name">{t.table.colCustomer}</th>
-            <th scope="col" className="feedback-table__th">{t.table.colCategory}</th>
-            <th scope="col" className="feedback-table__th">{t.table.colPriority}</th>
-            <th scope="col" className="feedback-table__th">{t.table.colStatus}</th>
-            <th scope="col" className="feedback-table__th feedback-table__th--date">{t.table.colDate}</th>
+            <th scope="col" className="feedback-table__th feedback-table__th--name">Customer</th>
+            <th scope="col" className="feedback-table__th">Category</th>
+            <th scope="col" className="feedback-table__th">Priority</th>
+            <th scope="col" className="feedback-table__th">Status</th>
+            <th scope="col" className="feedback-table__th feedback-table__th--date">Date</th>
           </tr>
         </thead>
         <tbody onKeyDown={handleKeyDown}>
           {items.length === 0 ? (
-            <EmptyState message={t.table.empty} />
+            <EmptyState />
           ) : (
             <>
               {paddingTop > 0 && (
