@@ -17,7 +17,10 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
 
 export function FeedbackFilters({ filters, totalCount, onChange }: FeedbackFiltersProps) {
   const hasActiveFilters =
-    filters.query !== '' || filters.category !== '' || filters.status !== '';
+    filters.query !== '' ||
+    filters.category !== '' ||
+    filters.status !== '' ||
+    filters.sort !== 'newest';
 
   function handleReset() {
     onChange({ query: '', category: '', status: '', sort: 'newest' });
